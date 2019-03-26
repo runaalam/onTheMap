@@ -20,9 +20,11 @@ class AddLocationViewController: UIViewController, UITextFieldDelegate {
         
         locationTextField.delegate = self
         websiteTextField.delegate = self
+        setActivityIndicator(false)
     }
     
     func setActivityIndicator(_ isActive: Bool) {
+        activityIndicator.isHidden = !isActive
         if isActive {
             activityIndicator.startAnimating()
         } else {

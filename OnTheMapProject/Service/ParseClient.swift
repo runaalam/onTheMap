@@ -44,12 +44,13 @@ class ParseClient {
         }
     }
     
-    class func getStudentInformationList(completion: @escaping ([StudentInformation], Bool?) -> Void){
+    class func getStudentInformationList(completion: @escaping ([StudentInformation], Error?) -> Void){
         ParseClient.taskForGETRequest(url: ParseClient.Endpoints.studentInfoWithLimit.url, responseType: LocationListRequest.self) { locationList, error in
             if error == nil {
-                completion((locationList?.results)!, true)
+                completion((locationList?.results)!, nil)
             } else {
-                completion([], false)
+                completion([], error)
+                print(error as Any)
             }
         }
     }

@@ -36,12 +36,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Identifiers.LOCATION_TAB_IDENTIFIER {
             if let navigationController = segue.destination as? UINavigationController,
-                let tabController = navigationController.visibleViewController as? LocationTabBarController {
+            let tabController = navigationController.visibleViewController as? LocationTabBarController {
                     tabController.account = self.account
                     tabController.session = self.session
                     tabController.user = self.user
                     tabController.studentLocationList = self.studentLocationList
-            }
+                }
             setActivityIndicator(false)
         }
     }
@@ -84,12 +84,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     // Re-enable views when request finishes.
                     self.performSegue(withIdentifier: Identifiers.LOCATION_TAB_IDENTIFIER, sender: self)
                 }
-            }
-        }
-        
-        ParseClient.getStudentInformationList{ studentInfoList, containList in
-            if containList!{
-                self.studentLocationList = studentInfoList
             }
         }
     }

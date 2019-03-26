@@ -15,25 +15,59 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mapView: MKMapView!
     
     //MARK: Properties
+    var account : Account?
+    var session : Session?
+    var user : User?
     var studentLocationList = [StudentInformation]()
     var annotations = [MKPointAnnotation]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         mapView.delegate = self
         mapView.showsUserLocation = true
         mapView.setUserTrackingMode(.followWithHeading, animated: true)
         
-        // When the array is complete, we add the annotations to the map.
-        self.mapView.addAnnotations(annotations)
+        getLocationList()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print("============= \(LocationModel.locationList.count) ============")
+    }
+    
+    func getLocationList() {
+        ParseClient.getStudentInformationList() { locationList, error in
+            if !locationList.isEmpty {
+                LocationModel.locationList = locationList
+                self.getAnnotationList()
+            }
+        }
+    }
+    
+    func getAnnotationList(){
+        for dictionary in LocationModel.locationList {
+            var annotation: MKPointAnnotation
+            annotation = setAnnotation(studentInfo: dictionary)
+            self.annotations.append(annotation)
+        }
+        self.mapView.addAnnotations(self.annotations)
+    }
+    
+    func setAnnotation(studentInfo: StudentInformation) -> MKPointAnnotation {
+        let lat = CLLocationDegrees(studentInfo.latitude!)
+        let long = CLLocationDegrees(studentInfo.longitude!)
+        let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+        
+        let first = studentInfo.firstName
+        let last = studentInfo.lastName
+        let mediaURL = studentInfo.mediaUrl
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        annotation.title = (first)! + " " + (last)!
+        annotation.subtitle = mediaURL
+        return annotation
     }
     
     // MARK: - MKMapViewDelegate
-    
-    // Here we create a view with a "right callout accessory view". You might choose to look into other
-    // decoration alternatives. Notice the similarity between this method and the cellForRowAtIndexPath
-    // method in TableViewDataSource.
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
