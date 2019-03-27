@@ -15,48 +15,42 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mapView: MKMapView!
     
     //MARK: Properties
-    var account : Account?
-    var session : Session?
-    var user : User?
-    var studentLocationList = [StudentInformation]()
     var annotations = [MKPointAnnotation]()
+    var stdLocationList = [StudentInformation]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
         mapView.showsUserLocation = true
         mapView.setUserTrackingMode(.followWithHeading, animated: true)
-        
         getLocationList()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        print("============= \(LocationModel.locationList.count) ============")
-    }
-    
     func getLocationList() {
+        let tableTab = self.tabBarController!.viewControllers![1] as! LocationTableController
         ParseClient.getStudentInformationList() { locationList, error in
             if !locationList.isEmpty {
-                LocationModel.locationList = locationList
+                self.stdLocationList = locationList
                 self.getAnnotationList()
+                tableTab.stdLocationList = locationList
             }
         }
     }
     
     func getAnnotationList(){
-        for dictionary in LocationModel.locationList {
+        for dictionary in self.stdLocationList {
             var annotation: MKPointAnnotation
             annotation = setAnnotation(studentInfo: dictionary)
             self.annotations.append(annotation)
         }
         self.mapView.addAnnotations(self.annotations)
     }
-    
+
     func setAnnotation(studentInfo: StudentInformation) -> MKPointAnnotation {
         let lat = CLLocationDegrees(studentInfo.latitude!)
         let long = CLLocationDegrees(studentInfo.longitude!)
         let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
-        
+
         let first = studentInfo.firstName
         let last = studentInfo.lastName
         let mediaURL = studentInfo.mediaUrl

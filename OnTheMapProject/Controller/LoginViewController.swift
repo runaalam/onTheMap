@@ -23,7 +23,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     var account: Account!
     var session: Session!
     var user: User!
-    var studentLocationList = [StudentInformation]()
     
     // MARK: override function
     
@@ -40,7 +39,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     tabController.account = self.account
                     tabController.session = self.session
                     tabController.user = self.user
-                    tabController.studentLocationList = self.studentLocationList
                 }
             setActivityIndicator(false)
         }

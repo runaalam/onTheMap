@@ -15,13 +15,9 @@ class LocationTabBarController: UITabBarController {
     var account : Account?
     var session : Session?
     var user : User?
-    var studentLocationList = [StudentInformation]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    @IBAction func addLocationPressed(_ sender: Any) {
     }
     
     @IBAction func logoutPressed(_ sender: Any) {

@@ -10,11 +10,11 @@ import UIKit
 
 class LocationTableController: UITableViewController {
 
-    var studentInfoList: [StudentInformation] = []
+    var stdLocationList = [StudentInformation]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        print("====== I M TABLE PRINT \(String(describing: self.stdLocationList.count)) =====")
     }
 
 
