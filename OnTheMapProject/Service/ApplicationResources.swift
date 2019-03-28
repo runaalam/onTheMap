@@ -12,6 +12,8 @@ struct Identifiers {
     static let LOCATION_TAB_IDENTIFIER = "segueTabController"
     static let ADD_LOCATION_IDENTIFIER = "segueAddLocation"
     static let LOCATION_DETAILS_IDENTIFIER = "segueLocationDetails"
+    static let LOCATION_CELL_IDENTIFIER = "locationCell"
+
 }
 
 struct Massages {

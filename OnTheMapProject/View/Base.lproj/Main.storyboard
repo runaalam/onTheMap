@@ -336,11 +336,11 @@
             </objects>
             <point key="canvasLocation" x="54" y="752"/>
         </scene>
-        <!--Map-->
+        <!--On the Map-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
                 <tabBarController id="49e-Tb-3d3" customClass="LocationTabBarController" customModule="OnTheMapProject" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" title="Map" id="dYz-hy-LZE">
+                    <navigationItem key="navigationItem" title="On the Map" id="dYz-hy-LZE">
                         <barButtonItem key="leftBarButtonItem" title="Logout" id="iTU-ro-ztz">
                             <connections>
                                 <action selector="logoutPressed:" destination="49e-Tb-3d3" id="kpb-bL-6Oa"/>
